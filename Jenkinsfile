@@ -2,14 +2,36 @@ pipeline {
   agent any
   stages {
     stage('build') {
-      steps {
-        sh 'echo"this stage is build information"'
+      parallel {
+        stage('build') {
+          steps {
+            sh 'echo"this stage is build information"'
+          }
+        }
+
+        stage('parallel') {
+          steps {
+            sh 'echo "parallel stage"'
+          }
+        }
+
       }
     }
 
     stage('test') {
-      steps {
-        sh 'echo "this stage test information"'
+      parallel {
+        stage('test') {
+          steps {
+            sh 'echo "this stage test information"'
+          }
+        }
+
+        stage('paralell') {
+          steps {
+            sh 'echo "parallel stage"'
+          }
+        }
+
       }
     }
 
